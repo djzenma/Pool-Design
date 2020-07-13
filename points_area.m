@@ -37,7 +37,7 @@ while i < size(in,1)
         end
     end
     while level > 1
-        sum = sum + int(get_curve(i,j-i,level,in));
+        sum = sum + int(get_curve(i,j-i,level,in)) - int(get_curve(i,j-1,level-1,in));
         level = level-2;
     end
     i = i + j;    
