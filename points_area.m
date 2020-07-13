@@ -34,11 +34,14 @@ while i < size(in,1)
             break
         else
             level = level + 1;
+            j = j + 1;
         end
     end
-    while level > 1
-        sum = sum + int(get_curve(i,j-i,level,in)) - int(get_curve(i,j-1,level-1,in));
-        level = level-2;
+    if j ~= 1
+        while level > 1
+            sum = sum + int(get_curve(i,j-i,level,in));
+            level = level-2;
+        end
     end
     i = i + j;    
 end

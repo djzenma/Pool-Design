@@ -1,3 +1,4 @@
 report/*
+.vscode/
 !report/report.tex
 !report/report.pdf
