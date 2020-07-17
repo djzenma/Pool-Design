@@ -7,16 +7,11 @@ function I = int_best_estimate_3d(x, y, z)
         Iy(i) = best_estimate_2d(x, Y);
     end
     % best estimate on the X dimension
-    I = best_estimate_2d(y, Iy);
+    [y_sorted, idx] = sort(y);
+    Iy_reordered = Iy(idx);
+    I = best_estimate_2d(y_sorted, Iy_reordered);
 end
 
-function [x, y_new] = sort_x(x, y)
-    y_new = zeros(1, length(y));
-    [x, idx] = sort(x);
-    for i = 1 : length(y)
-        y_new(i) = y(idx(i));
-    end
-end
 
 function I = best_estimate_2d(x, y)
     dx=diff(x);

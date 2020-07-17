@@ -11,8 +11,8 @@ format long;
 %     6 7 8];
 
 % Cube Test
-x = [0 0.5 1 1.5 2];
-y = [0 0.5 1 1.5 2];
+x = [2 0 1.5 0.5 1];        % Notice I took the corners: (0, 0), (0,2), (2,0), (2,2)
+y = [0 2 1 0.5 1.5];
 z = [2 2 2 2 2              % x = Col, y = Row, z = f(Row, Col)
      2 2 2 2 2
      2 2 2 2 2
