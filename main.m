@@ -4,14 +4,13 @@ close all;
 
 format long;
 
-pts = csvread('data/pool1.csv', 1, 0);
-fprintf('%s\nSuccessfuly Read %d points, each of size %d\n%s\n', repelem('-', 50), size(pts), repelem('-', 50));
-
-[X, Y, Z] = preprocess(pts);
 
 is_pts = input('Points (0) or Function (1) ? [0] : ');
 if isempty(is_pts) || ~is_pts
     % Integrate Points
+    pts = csvread('data/pool1.csv', 1, 0);
+    fprintf('%s\nSuccessfuly Read %d points, each of size %d\n%s\n', repelem('-', 50), size(pts), repelem('-', 50));
+    [X, Y, Z] = preprocess(pts);
     fprintf("\n%s\nNumerical Points Integration: \n I ~ %10.10f\n%s\n", repelem('*', 50), int_pts(X, Y, Z), repelem('*', 50));
 else
     % Integrate Function
