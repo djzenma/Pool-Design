@@ -1,17 +1,16 @@
-function I = int_fun(f)
-    num_pts = 10;
+function I = int_fun(f, x_lim, y_lim)
     step = 1;
     
-    X = 0:step:num_pts-1;
-    Y = 0:step:num_pts-1;
-    Z = zeros(num_pts/step, num_pts/step);
+    X = 0:step:x_lim;
+    Y = 0:step:y_lim;
+    Z = zeros((y_lim+1)/step, (x_lim+1)/step);
     
     syms x y;
-    for i = 1:step:num_pts
-        x = i-1;
-        y = 0:step:num_pts-1;
-        Z(:,i) = subs(f);
+    for i = 0:step:x_lim
+        x = i;
+        y = 0:step:y_lim;
+        Z(:,i+1) = subs(f);
     end
-    [X, Y, Z] = reorder(X, Y, Z); 
+    [X, Y, Z] = reorder(X, Y, Z);
     I = int_best_estimate_3d(X, Y, Z);
 end
