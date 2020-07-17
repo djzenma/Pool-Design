@@ -1,30 +1,4 @@
-clc;
-clear;
-close all;
-
-format long
-
-x = [0 0.05 0.15 0.25];
-y = [0 1];
-z = [1 2 3 4    % x = C, y = R, z = C(R, C)
-     5 6 7 8];
- 
-%[x, y] = sort_x(x, y)
-I = best_estimate_3d(x, y, z);
-
-disp(['I ~ ', num2str(I)]);
-
-
-function [x, y_new] = sort_x(x, y)
-    y_new = zeros(1, length(y));
-    [x, idx] = sort(x);
-    for i = 1 : length(y)
-        y_new(i) = y(idx(i));
-    end
-end
-
-
-function I = best_estimate_3d(x, y, z)
+function I = int_best_estimate_3d(x, y, z)
     Iy = zeros(length(y), 1);
     % best estimate on the Y dimension
     for i = 1:length(y)
@@ -34,6 +8,14 @@ function I = best_estimate_3d(x, y, z)
     end
     % best estimate on the X dimension
     I = best_estimate_2d(y, Iy);
+end
+
+function [x, y_new] = sort_x(x, y)
+    y_new = zeros(1, length(y));
+    [x, idx] = sort(x);
+    for i = 1 : length(y)
+        y_new(i) = y(idx(i));
+    end
 end
 
 function I = best_estimate_2d(x, y)
