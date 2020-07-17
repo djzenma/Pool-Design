@@ -19,45 +19,50 @@ for i = 1:size(in,1)
     end
 end
 
+% sort it so we can go through it linearly from left to right and find where all the y values overlap
 points = sortrows(points);
 
-i = 1;
+i = 1; % used to itterate over the points to consider
 
-sum = 0;
+sum = 0; % total area
+
+% every itteration of this while loop takes into consideration a different section of x that have a common number of levels. In other words, all the values of x the represent the same number of different Ys
 while i < size(in,1)
-    level = 1;
+    level = 1; % the existence of an x here means i has a level. (naturally)
     while 1
-        j = i;
-        [lvl1,j] = get_lvl(j,in);
-        [lvl2,j] = get_lvl(j+1,in);
-        if lvl1 ~= lvl2
+        j = i; % start the temporary itterator j at i
+        [lvl1,j] = get_lvl(j,in); % get the number of levels at j and then set j to the end of the levels section
+        [lvl2,j] = get_lvl(j+1,in); % get the number of levels in the next section
+        if lvl1 ~= lvl2 % check if the levels are the same so we can consider them to be the same section
             break
         else
             level = level + 1;
             j = j + 1;
         end
     end
-    if j ~= 1
-        while level > 1
-            sum = sum + int(get_curve(i,j-i,level,in));
-            level = level-2;
+    if level ~= 1 % if the number of levels is not 1. if it is then it means the point we are at is not part of loop so break.
+        while level > 1 & while there are more than 1 levels to considers
+            sum = sum + int(get_curve(i,j-i,level,in)) - int(get_curve(i,j-i,level-1,in)); % for this level in this section, get a the points for it curvem integrate it and subtract the integration of the below curve
+            level = level-2; % go to the next level
         end
     end
-    i = i + j;    
+    i = i + j; % set itterator to end of section so we can start considering the next section 
 end
 
 disp(sum)
 
+% get the points to represent the curve for a certain level so we can use it for integration
 function ret = get_curve(n,itt,lvl,in)
     for i = 0:itt
         ret = [ret;in(n+i*lvl)];
     end        
 end
 
+% get number of levels for a given value x. In other words, get the number of y values that exist for a single x value
 function [j,lvl] = get_lvl(i,in)
-    j = i;
+    j = i; % j is the actual index of the level
     while 1
-        if in(j,2) ~= in(j+1,2)
+        if in(j,1) ~= in(j+1,1)
             break
         else
             lvl = lvl + 1;
@@ -66,7 +71,8 @@ function [j,lvl] = get_lvl(i,in)
     end
 end
 
-function sum = int(in)
+% integration, it calculates the most efficient integration, picking from between trapezoidal, and the 2 simpsons formule
+function sum = int(in) 
     sum = 0;
     dx = diff(in(:,1));
     i = 2;
