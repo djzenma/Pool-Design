@@ -19,7 +19,14 @@ z = [2 2 2 2 2              % x = Col, y = Row, z = f(Row, Col)
      2 2 2 2 2
      2 2 2 2 2];
  
-[x, y, z] = reorder(x, y, z); 
-I = int_best_estimate_3d(x, y, z);
-disp(['I ~ ', num2str(I)]);
+% Integrate Points
+fprintf("Numerical Points Integration: \n I ~ %10.10f\n", int_pts(x,y,z));
+
+% Integrate Function
+syms x y;
+f = x^2 + y;
+fprintf("Numerical Function Integration: \n I ~ %10.10f\n", int_fun(f));
+
+
+
 
