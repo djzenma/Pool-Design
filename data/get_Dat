@@ -1,0 +1,24 @@
+import bpy
+
+obj = bpy.data.objects["Plane"].data
+data = obj
+
+output_data = []
+
+for face in data.polygons:
+    loc_list = []
+    precision = 3
+    for index in face.vertices:
+        vert = data.vertices[index]
+        loc_list.append(" ".join([
+            str(round(vert.co.x, precision)),
+            str(round(vert.co.y, precision)),
+            str(round(vert.co.z, precision))
+            ])
+        )
+
+    output_data.append(" ".join(loc_list))
+
+filepath = "/data/Abdo/Abdo/Abdos University work/Summer 2020/engineering computation/project/Pool-Design/data/pool1.dat"
+with open(filepath, 'w') as f:
+    f.write("\n".join(output_data))
