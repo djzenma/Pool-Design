@@ -1,0 +1,9 @@
+import bpy
+from bpy import context
+
+obj = bpy.data.objects["Plane"].data
+file = open('/data/Abdo/Abdo/Abdos University work/Summer 2020/engineering computation/project/Pool-Design/data/pool1.csv','w')
+file.write('x,y,z\n')
+for i in obj.vertices:
+    wr = str(round(i.co.x,3)) + ',' + str(round(i.co.y,3)) + ',' + str(round(i.co.z,3)) + '\n'
+    file.write(wr)
