@@ -1,4 +1,4 @@
-function I = int_fun(f, x_lim, y_lim)
+function I = int_fun_numericaly_3D(f, x_lim, y_lim)
     step = 1;
     
     X = 0:step:x_lim;
