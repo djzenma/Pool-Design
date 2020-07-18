@@ -1,7 +1,14 @@
 function [X, Y, Z] = preprocess(pts)
+    % Push to 1st Quadrant
+    pts(:,1) = push_quadrant(pts(:,1));
+    pts(:,2) = push_quadrant(pts(:,2));
+    pts(:,3) = push_quadrant(pts(:,3)); 
+    
+
     X = unique(pts(:, 1), 'sorted');
     Y = unique(pts(:, 2), 'sorted');
     Z = zeros(length(X), length(Y));
+    
 
     % TODO: Remove duplicates
     for i=1:length(Y)
@@ -17,3 +24,10 @@ function [X, Y, Z] = preprocess(pts)
         end
     end
 end
+
+function A = push_quadrant(A)
+    if sum(any(A<0)) > 0     % a negative number exists
+        A = A + abs(min(A));
+    end
+end
+    

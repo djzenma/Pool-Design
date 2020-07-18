@@ -1,19 +1,4 @@
-function I = int_best_estimate_3d(x, y, z)
-    Iy = zeros(length(y), 1);
-    % best estimate on the Y dimension
-    for i = 1:length(y)
-        % Get all X points with same Y = Y(i)
-        Y = z(i, :);
-        Iy(i) = best_estimate_2d(x, Y);
-    end
-    % best estimate on the X dimension
-    [y_sorted, idx] = sort(y);
-    Iy_reordered = Iy(idx);
-    I = best_estimate_2d(y_sorted, Iy_reordered);
-end
-
-
-function I = best_estimate_2d(x, y)
+function I = best_estimate_2D(x, y)
     dx=diff(x);
     i=1;
     I=0;

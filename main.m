@@ -4,21 +4,31 @@ close all;
 
 format long;
 
+% TODO:: 2D function integration
+
+
 
 is_pts = input('Points (0) or Function (1) ? [0] : ');
 if isempty(is_pts) || ~is_pts
     % Integrate Points
     pts = csvread('data/pool1.csv', 1, 0);
     fprintf('%s\nSuccessfuly Read %d points, each of size %d\n%s\n', repelem('-', 50), size(pts), repelem('-', 50));
+    
     [X, Y, Z] = preprocess(pts);
     fprintf("\n%s\nNumerical Points Integration: \n I ~ %10.10f\n%s\n", repelem('*', 50), int_pts(X, Y, Z), repelem('*', 50));
 else
     % Integrate Function
-    syms x y;
-    x_lim = input('Enter x upper limit: ');
-    y_lim = input('Enter y upper limit: ');
-    f = input('Enter the function: ');
-    fprintf("\n%s\nNumerical Function Integration: \n I ~ %10.10f\n%s\n", repelem('*', 50), int_fun(f, x_lim, y_lim), repelem('*', 50));
+    syms x;
+    z_num = input('Enter number of z levels: ');
+    I = zeros(z_num, 2);
+    for i=1:z_num
+        I(i, 1) = input('Enter z level: ');
+        f = input(['Enter f(x) at z = ' , num2str(I(i, 1)), ': ']);
+        x_lower = input('Enter x lower limit: ');
+        x_upper = input('Enter x upper limit: ');
+        I(i, 2) = int(sym(f), x_lower, x_upper);
+    end
+    fprintf("\n%s\nFunction Integration: \n I ~ %10.10f\n%s\n", repelem('*', 50), best_estimate_2D(I(:,1), I(:,2)), repelem('*', 50));
 end
 
 
