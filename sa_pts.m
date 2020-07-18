@@ -1,45 +1,32 @@
-clc
-clear
+function ret = sa_pts(in)
+    % Shift graph so that its in the first quadrant
+    in(:,1) = in(:,1) - min(in(:,1));
+    in(:,2) = in(:,2) - min(in(:,2));
 
-z_min = main(in(:,3));
-x_min = min(in(:,1));
-y_min = min(in(:,2));
+    x = in(:,1);
+    x = sortrow(x);
 
-% Shift graph so that its in the first quadrant
-in(:,1) = in(:,1) - x_min;
-in(:,2) = in(:,2) - y_min;
-
-z = in(:,3);
-z = sortrow(z);
-
-for i = 1: size(z,1)
-    cur_z = z(i);
-    con = [];
-    for j = 1: size(in,1)
-        if cuz_z == in(j,3)
-            con = [con,in(j)];
+    for i = 1: size(x,1)
+        cur_x = x(i);
+        con = [];
+        for j = 1: size(in,1)
+            if cur_x == in(j,1)
+                con = [con,in(j)];
+            end
         end
+        ret = [ret,get_perimeter(con)];
     end
-    ret = [ret,get_perimeter(con)];
+
+    ret = integ(ret);
 end
 
-ret = int(ret);
-
-disp(ret);
-
-
 function ret = get_perimeter(in)
+    in(:,1) = []
     in = sortrows(in);
-    cur = in(start,1);
     ret = 0;
-    i = 1;
-    while ~empty(in)
-        [val,idx] = min(abs(in(:,1)-cur));
-        idx = min(abs(idx-i));
-        ret = ret + dist(cur,val);
-        cur = val(1);
-        in(idx) = [];
-        i = idx;
+    while size(in,1) ~= 1
+        ret = ret + dist(in(1),in(2));
+        in(1) = []
     end
 end
 
@@ -47,7 +34,7 @@ function ret = dist(in1,in2)
     ret = sqrt( abs(in1(1)-in2(1))^2 + abs(in1(2)-in2(2))^2 );
 end
 
-function sum = int(in)
+function sum = integ(in)
     sum = 0;
     dx = diff(in(:,1));
     i = 2;

@@ -1,14 +1,14 @@
-h = print("enter step");
-d = print("enter depth");
+h = input("enter step");
+d = input("enter depth");
 
 i = 0;
 while i < d
     print("for depth ", i);
     h_sum = 0;
-    x = print("enter points of upper curve to evaluate: ");
+    x = input("enter points of upper curve to evaluate: ");
     x = x - min(x);
     h_sum = h_sum + p_get_len(x);
-    x = print("enter points of lower curve to evaluate: ");
+    x = input("enter points of lower curve to evaluate: ");
     x = x - min(x);
     h_sum = h_sum + p_get_len(x);
     peri = [peri,h_sum];
