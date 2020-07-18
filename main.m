@@ -4,8 +4,6 @@ close all;
 
 format long;
 
-% TODO:: 2D function integration
-
 
 
 is_pts = input('Points (0) or Function (1) ? [0] : ');
@@ -27,6 +25,10 @@ else
         f2 = input(['Enter f2(x) at z = ' , num2str(I(i, 1)), ': ']);
         x_lower = input('Enter x lower limit: ');
         x_upper = input('Enter x upper limit: ');
+        if x_lower < 0
+            x_upper = x_upper + abs(x_lower);
+            x_lower = 0;
+        end
         I(i, 2) = int(sym(f1), x_lower, x_upper) + int(sym(f2), x_lower, x_upper);
     end
     fprintf("\n%s\nFunction Integration: \n I ~ %10.10f\n%s\n", repelem('*', 50), best_estimate_2D(I(:,1), I(:,2)), repelem('*', 50));
