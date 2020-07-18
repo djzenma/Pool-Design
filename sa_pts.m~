@@ -1,7 +1,11 @@
 function ret = sa_pts(in)
     % Shift graph so that its in the first quadrant
-    in(:,1) = in(:,1) - min(in(:,1));
-    in(:,2) = in(:,2) - min(in(:,2));
+%     in(:,1) = in(:,1) - min(in(:,1));
+%     in(:,2) = in(:,2) - min(in(:,2));
+%     in(:,3) = in(:,3) - min(in(:,3));
+% %     in(:,1) = push_quadrant(in(:,1));
+    in(:,2) = push_quadrant(in(:,2));
+    in(:,3) = push_quadrant(in(:,3));
 
     x = in(:,1);
     x = unique(x);
@@ -15,7 +19,7 @@ function ret = sa_pts(in)
                 con = [con;[in(j,:)]];
             end
         end
-        ret = [ret,[get_perimeter(con)];
+        ret = [ret;[cur_x,get_perimeter(con)]];
     end
 
     ret = integ(ret);
@@ -25,7 +29,7 @@ function ret = get_perimeter(in)
     in(:,1) = [];
     in = sortrows(in);
     ret = 0;
-    while size(in,1) ~= 1
+    while size(in,1) > 1
         ret = ret + dist(in(1,:),in(2,:));
         in(1,:) = [];
     end
