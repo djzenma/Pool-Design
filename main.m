@@ -23,10 +23,11 @@ else
     I = zeros(z_num, 2);
     for i=1:z_num
         I(i, 1) = input('Enter z level: ');
-        f = input(['Enter f(x) at z = ' , num2str(I(i, 1)), ': ']);
+        f1 = input(['Enter f1(x) at z = ' , num2str(I(i, 1)), ': ']);
+        f2 = input(['Enter f2(x) at z = ' , num2str(I(i, 1)), ': ']);
         x_lower = input('Enter x lower limit: ');
         x_upper = input('Enter x upper limit: ');
-        I(i, 2) = int(sym(f), x_lower, x_upper);
+        I(i, 2) = int(sym(f1), x_lower, x_upper) + int(sym(f2), x_lower, x_upper);
     end
     fprintf("\n%s\nFunction Integration: \n I ~ %10.10f\n%s\n", repelem('*', 50), best_estimate_2D(I(:,1), I(:,2)), repelem('*', 50));
 end
