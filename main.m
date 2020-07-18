@@ -4,8 +4,6 @@ close all;
 
 format long;
 
-% TODO:: 2D function integration
-
 
 
 is_pts = input('Points (0) or Function (1) ? [0] : ');
@@ -30,7 +28,11 @@ else
         f2 = input(['Enter f2(x) at z = ' , num2str(I(i, 1)), ': ']);
         x_lower = input('Enter x lower limit: ');
         x_upper = input('Enter x upper limit: ');
-        I(i, 2) = abs(int(sym(f1), x_lower, x_upper)) + abs(int(sym(f2), x_lower, x_upper));
+        if x_lower < 0
+            x_upper = x_upper + abs(x_lower);
+            x_lower = 0;
+        end
+        I(i, 2) = int(sym(f1), x_lower, x_upper) + int(sym(f2), x_lower, x_upper);
         if i != z_num
             A(i,2) = abs(int(sym(sqrt(1+diff(f1)^2)), x_lower, x_upper)) + abs(int(sym(sqrt(1+diff(f2)^2)), x_lower, x_upper));
         else
