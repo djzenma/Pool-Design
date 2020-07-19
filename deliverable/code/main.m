@@ -22,7 +22,7 @@ else
     I = zeros(z_num, 2);
     for i=1:z_num
         cur_z = input('Enter z level: ');
-        I(i, 1) = cuz_z;
+        I(i, 1) = cur_z;
         A(i, 1) = cur_z;
         f1 = input(['Enter f1(x) at z = ' , num2str(I(i, 1)), ': ']);
         f2 = input(['Enter f2(x) at z = ' , num2str(I(i, 1)), ': ']);
@@ -40,7 +40,7 @@ else
         end
     end
     
-    fprintf("\n%s\nSurface Area of Functoin: \n A ~ %10.10f\n%s\n", repelem('*', 50), best_estimate_2D(best_estimate_2D(A(:,1), A(:,2)) + bottom), repelem('*', 50));
+    fprintf("\n%s\nSurface Area of Functoin: \n A ~ %10.10f\n%s\n", repelem('*', 50), (best_estimate_2D(A(:,1), A(:,2)) + bottom), repelem('*', 50));
     fprintf("\n%s\nFunction Integration: \n I ~ %10.10f\n%s\n", repelem('*', 50), best_estimate_2D(I(:,1), I(:,2)), repelem('*', 50));
 end
 
