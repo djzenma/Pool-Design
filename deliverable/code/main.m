@@ -34,7 +34,7 @@ else
         end
         I(i, 2) = int(sym(f1), x_lower, x_upper) + int(sym(f2), x_lower, x_upper);
         if i ~= z_num
-            A(i,2) = abs(int(sym(sqrt(1+diff(sym(f1))^2)), x_lower, x_upper)) + abs(int(sym(sqrt(1+diff(syn(f2))^2)), x_lower, x_upper));
+            A(i,2) = abs(int(sym(sqrt(1+diff(sym(f1))^2)), x_lower, x_upper)) + abs(int(sym(sqrt(1+diff(sym(f2))^2)), x_lower, x_upper));
         else
             bottom = abs(int(sym(f1), x_lower, x_upper)) + abs(int(sym(f2), x_lower, x_upper));
         end
